@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Marca Filadd no Brasil — v10 · Q1 2026 completo + 115 matérias</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --brand: #2A2EFF;
+    --brand-dark: #1316A8;
+    --brand-light: #EAEBFF;
+    --bg: #F7F8FA;
+    --card: #FFFFFF;
+    --text: #0E1330;
+    --muted: #6B7287;
+    --line: #E5E7F0;
+    --green: #10B981;
+    --red: #EF4444;
+    --yellow: #F59E0B;
+    --br-green: #009C3B;
+    --br-yellow: #FFDF00;
+    --ig: #E1306C;
+    --tt: #111;
+    --yt: #FF0000;
+    --wa: #25D366;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.55;
+    padding: 32px 16px 80px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .hero {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+    color: white; border-radius: 24px;
+    padding: 56px 48px; margin-bottom: 32px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 320px; height: 320px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .hero .flag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.12);
+    padding: 8px 16px; border-radius: 999px;
+    font-size: 14px; font-weight: 500; margin-bottom: 24px;
+  }
+  .hero h1 { font-size: 52px; line-height: 1.05; margin-bottom: 12px; font-weight: 800; letter-spacing: -1.5px; }
+  .hero .sub { font-size: 20px; opacity: 0.88; max-width: 760px; }
+  .hero .meta { margin-top: 32px; display: flex; gap: 32px; flex-wrap: wrap; font-size: 14px; opacity: 0.85; }
+  .hero .badge-v {
+    display: inline-block; background: #FBBF24; color: #422006;
+    padding: 4px 12px; border-radius: 8px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; margin-bottom: 16px;
+  }
+
+  section { margin-bottom: 56px; }
+  .section-header {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .section-header h2 {
+    font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-header h2 .num {
+    background: var(--brand); color: white;
+    width: 36px; height: 36px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .section-header .lead { color: var(--muted); font-size: 15px; }
+
+  .grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+  .grid-6 { grid-template-columns: repeat(6, 1fr); }
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-4, .grid-5, .grid-6 { grid-template-columns: 1fr; }
+    .hero { padding: 40px 28px; }
+    .hero h1 { font-size: 36px; }
+  }
+
+  .card {
+    background: var(--card); border-radius: 18px;
+    padding: 24px; border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(14,19,48,0.04);
+  }
+  .card.platform-ig { border-top: 4px solid var(--ig); }
+  .card.platform-tt { border-top: 4px solid var(--tt); }
+  .card.platform-yt { border-top: 4px solid var(--yt); }
+  .card.platform-wa { border-top: 4px solid var(--wa); }
+  .card.platform-leads { border-top: 4px solid #6366F1; }
+  .card.highlight-card { border: 2px solid var(--brand); background: linear-gradient(135deg, var(--brand-light) 0%, white 100%); }
+
+  .card h3 {
+    font-size: 14px; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--muted); margin-bottom: 8px; font-weight: 600;
+  }
+  .card .big { font-size: 36px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; }
+  .card .big-sm { font-size: 28px; font-weight: 800; line-height: 1.1; letter-spacing: -0.5px; }
+  .card .delta {
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 8px; padding: 4px 10px;
+    border-radius: 999px; font-size: 13px; font-weight: 600;
+  }
+  .delta.up { background: rgba(16, 185, 129, 0.12); color: var(--green); }
+  .delta.down { background: rgba(239, 68, 68, 0.12); color: var(--red); }
+  .delta.flat { background: rgba(245, 158, 11, 0.15); color: var(--yellow); }
+  .card .note { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+  th { background: var(--bg); font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  tr.highlight { background: var(--brand-light); }
+  tr.highlight td { font-weight: 700; }
+  td.delta-up { color: var(--green); font-weight: 700; }
+  td.delta-down { color: var(--red); font-weight: 700; }
+
+  .chart-wrap { position: relative; height: 320px; margin-top: 16px; }
+  .chart-wrap.tall { height: 380px; }
+
+  .insights {
+    background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+    border-radius: 18px; padding: 28px;
+    border: 1px solid #FDE68A;
+  }
+  .insights h3 { font-size: 22px; margin-bottom: 16px; color: #78350F; }
+  .insights ul { list-style: none; padding: 0; }
+  .insights li {
+    padding: 12px 0; padding-left: 32px;
+    position: relative; border-bottom: 1px solid rgba(120, 53, 15, 0.12);
+    color: #422006; font-size: 15px;
+  }
+  .insights li:last-child { border-bottom: 0; }
+  .insights li::before { content: "💡"; position: absolute; left: 0; top: 12px; }
+  .insights li.warning::before { content: "⚠️"; }
+  .insights li.win::before { content: "🚀"; }
+  .insights li.action::before { content: "🎯"; }
+  .insights li.alert::before { content: "🚨"; }
+  .insights li.discover::before { content: "🔍"; }
+
+  /* TOP CONTEÚDOS */
+  .top-content-card {
+    background: var(--card); border-radius: 16px;
+    border: 1px solid var(--line); overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .top-content-card .rank-badge {
+    background: var(--brand); color: white;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+    display: inline-block; margin-bottom: 8px;
+  }
+  .top-content-card .rank-badge.gold { background: #F59E0B; }
+  .top-content-card .rank-badge.silver { background: #6B7280; }
+  .top-content-card .rank-badge.bronze { background: #B45309; }
+  .top-content-card .title {
+    font-size: 14px; font-weight: 600; line-height: 1.3;
+    margin-bottom: 12px; min-height: 40px;
+  }
+  .top-content-card .meta-tag {
+    display: inline-block; padding: 2px 8px;
+    background: var(--brand-light); color: var(--brand-dark);
+    border-radius: 6px; font-size: 11px;
+    font-weight: 600; margin-right: 4px; margin-bottom: 4px;
+  }
+  .top-content-card .meta-tag.collab { background: #FEE2E2; color: #B91C1C; }
+  .top-content-card .meta-tag.organic { background: #D1FAE5; color: #047857; }
+  .top-content-card .metric-row {
+    display: flex; justify-content: space-between;
+    padding: 6px 0; border-bottom: 1px solid var(--line);
+    font-size: 13px;
+  }
+  .top-content-card .metric-row:last-child { border-bottom: 0; }
+  .top-content-card .metric-row .v { font-weight: 700; }
+
+  .gaps {
+    background: #FFF1F2;
+    border: 2px dashed #FDA4AF;
+    border-radius: 18px; padding: 28px;
+  }
+  .gaps h3 { color: #881337; font-size: 22px; margin-bottom: 16px; }
+  .gap-item {
+    background: white; padding: 16px 20px;
+    border-radius: 12px; margin-bottom: 12px;
+    border-left: 4px solid #E11D48;
+  }
+  .gap-item.done { border-left-color: var(--green); background: #F0FDF4; }
+  .gap-item .gap-title { font-weight: 700; color: #881337; margin-bottom: 4px; }
+  .gap-item.done .gap-title { color: #065F46; }
+  .gap-item .gap-why { font-size: 14px; color: var(--muted); }
+  .gap-item .gap-how { font-size: 13px; color: #4F46E5; margin-top: 6px; font-weight: 500; }
+
+  .recs { background: var(--brand); color: white; border-radius: 18px; padding: 32px; }
+  .recs h3 { font-size: 24px; margin-bottom: 20px; }
+  .recs ol { padding-left: 24px; }
+  .recs li { margin-bottom: 14px; font-size: 15px; line-height: 1.6; }
+  .recs li b { display: block; margin-bottom: 4px; font-size: 16px; }
+
+  .todo {
+    background: var(--card); border-left: 4px solid var(--brand);
+    padding: 20px 24px; border-radius: 12px; margin-top: 20px;
+  }
+  .todo h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px; }
+  .todo ul { list-style: none; padding: 0; }
+  .todo li { padding: 6px 0; font-size: 14px; padding-left: 26px; position: relative; }
+  .todo li::before { content: "▢"; position: absolute; left: 0; color: var(--brand); font-weight: 700; }
+  .todo li.done::before { content: "✓"; color: var(--green); }
+
+  footer { margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-align: center; }
+
+  .triple-compare {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 0; margin-top: 16px;
+    border-radius: 12px; overflow: hidden; border: 1px solid var(--line);
+  }
+  .triple-compare > div { padding: 18px 20px; text-align: center; }
+  .triple-compare > div:nth-child(1) { background: #F3F4F6; }
+  .triple-compare > div:nth-child(2) { background: var(--brand-light); }
+  .triple-compare > div:nth-child(3) { background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); color: white; }
+  .triple-compare .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; margin-bottom: 6px; }
+  .triple-compare .val { font-size: 24px; font-weight: 800; }
+  .triple-compare .sub { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+
+  /* MONTHLY RIBBON 2026 */
+  .monthly-ribbon {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 12px; margin-top: 16px;
+  }
+  .monthly-ribbon .month-block {
+    background: var(--bg); padding: 14px;
+    border-radius: 12px; text-align: center;
+    border: 1px solid var(--line);
+  }
+  .monthly-ribbon .month-block.peak { background: linear-gradient(135deg, var(--brand-light) 0%, white 100%); border-color: var(--brand); }
+  .monthly-ribbon .month-name { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+  .monthly-ribbon .month-val { font-size: 18px; font-weight: 800; }
+  .monthly-ribbon .month-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="badge-v">v10 · Q1 2026 separado por mês · 115 matérias / R$ 561K acumulado</div>
+    <div class="flag">
+      <span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--br-green);box-shadow:inset 0 0 0 4px var(--br-yellow);"></span>
+      Brasil · Filadd Preu
+    </div>
+    <h1>A Marca Filadd no Brasil</h1>
+    <p class="sub">Evolução 2024 → 2025 → 2026 YTD. Versão completa com top conteúdos, base de leads e Comunidadd.</p>
+    <div class="meta">
+      <span><b>Período:</b> Jan 2024 → Mai 2026</span>
+      <span><b>Fontes:</b> Meta · TikTok · YouTube · Brevo · Posicionamiento</span>
+      <span><b>Atualizado:</b> 27 mai 2026 · Theus Mattos</span>
+    </div>
+  </div>
+
+  <!-- RESUMO EXECUTIVO -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">·</span> Resumo Executivo</h2>
+      <span class="lead">A análise em 2 parágrafos</span>
+    </div>
+    <div class="card" style="border-left:6px solid var(--brand); padding: 28px 32px;">
+      <p style="font-size:16px; line-height:1.7; margin-bottom:16px;">
+        A marca Filadd no Brasil viveu uma evolução estrutural entre 2024 e 2026. O <b>YouTube se consolidou como motor exponencial</b>, saltando de 805K views em 2024 para <b>7,4M apenas nos 5 primeiros meses de 2026</b> — só março/26 fez 3,05M views, mais do que o ano de 2024 inteiro. O <b>Instagram acumulou 55,3M visualizações em 2026 YTD (+147,5%)</b>, mas revela um paradoxo: views explodiram enquanto seguidores ganhos caíram 67,6%. O <b>TikTok seguiu o mesmo padrão</b>: views cresceram 731% mas conversão view→follow despencou 85%. A <b>Comunidadd no WhatsApp</b> cresceu de 893 para 7.440 membros (+733%) em 14 meses, mostrando que o ativo de relacionamento está se consolidando. Os <b>leads via Brevo multiplicaram 4x</b> (29K em 2024 → 122K em 2025 → 40K em 5 meses de 2026), e o <b>Twitter/X</b> emergiu como canal orgânico inesperado: zero vendas em 2024, 13 em 2025 e <b>16 em 5 meses de 2026</b> — sem nenhum investimento ativo.
+      </p>
+      <p style="font-size:16px; line-height:1.7;">
+        Sob a ótica das matrículas, há uma <b>redistribuição geográfica</b> em curso. O <b>Sudeste consolidou-se como mercado dominante</b> (49,9% → 57,7% do share), com Rio de Janeiro saltando +4,23 pp para se tornar o 3º maior mercado. Em contraponto, <b>Nordeste e Norte perderam participação relevante</b> (-5,3 pp e -1,9 pp respectivamente). Em paralelo, a <b>Assessoria de Imprensa também entregou resultado relevante</b>: já são <b>115 matérias publicadas em 2026 YTD</b> e <b>R$ 561 mil em equivalência publicitária</b> — um ativo de posicionamento que sustenta a marca a longo prazo. O público no Instagram mantém-se sólido na faixa-alvo (18-24 anos = 48,1%, com 60% mulheres). Em resumo: <b>a Filadd virou marca de awareness massivo</b> nos canais digitais, mas o desafio agora é traduzir esse alcance em audiência fiel e converter o momentum do Sudeste sem perder relevância no Norte e Nordeste.
+      </p>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM — SEÇÃO MASTER -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">1</span> Instagram · Comparativo 2024 → 2025 → 2026 YTD</h2>
+      <span class="lead">Tudo sobre o canal: trajetória, performance mensal 2026 e top conteúdos</span>
+    </div>
+
+    <!-- 1.0 Comparativo Triplo (movido para o topo) -->
+    <div class="card">
+      <h3>1.0 · Seguidores ganhos por ano</h3>
+      <div class="triple-compare">
+        <div>
+          <div class="label">2024</div>
+          <div class="val">+96,2 mil</div>
+          <div class="sub">ano completo</div>
+        </div>
+        <div>
+          <div class="label">2025</div>
+          <div class="val">+106,7 mil</div>
+          <div class="sub">mai → dez (parcial)</div>
+        </div>
+        <div>
+          <div class="label">2026 YTD</div>
+          <div class="val">+34,6 mil</div>
+          <div class="sub">jan → mai (5 meses)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1.1 Mês a mês 2026 -->
+    <h3 style="font-size:20px;font-weight:700;margin-top:32px;margin-bottom:12px;color:var(--brand-dark);">1.1 · Instagram 2026 — mês a mês</h3>
+
+    <div class="card">
+      <h3>Visualizações por mês · 2026 YTD</h3>
+      <div class="monthly-ribbon">
+        <div class="month-block"><div class="month-name">Janeiro</div><div class="month-val">10,7 mi</div></div>
+        <div class="month-block peak"><div class="month-name">Fevereiro</div><div class="month-val">26,2 mi</div><div class="month-sub">🔥 Pico do ano</div></div>
+        <div class="month-block"><div class="month-name">Março</div><div class="month-val">11,8 mi</div></div>
+        <div class="month-block"><div class="month-name">Abril</div><div class="month-val">3,1 mi</div><div class="month-sub" style="color:var(--red);">↓ -74%</div></div>
+        <div class="month-block"><div class="month-name">Maio (parcial)</div><div class="month-val">3,5 mi</div></div>
+      </div>
+      <div class="chart-wrap tall"><canvas id="ig2026Monthly"></canvas></div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Tabela completa por métrica · 2026 mês a mês</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th class="num">Jan</th>
+            <th class="num">Fev</th>
+            <th class="num">Mar</th>
+            <th class="num">Abr</th>
+            <th class="num">Mai (parc.)</th>
+            <th class="num">Total YTD</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Visualizações</b></td>
+            <td class="num">10,7 mi</td>
+            <td class="num delta-up">26,2 mi</td>
+            <td class="num">11,8 mi</td>
+            <td class="num delta-down">3,1 mi</td>
+            <td class="num">3,5 mi</td>
+            <td class="num">55,3 mi</td>
+          </tr>
+          <tr>
+            <td><b>Alcance</b></td>
+            <td class="num">5,6 mi</td>
+            <td class="num">8,8 mi</td>
+            <td class="num delta-up">10,1 mi</td>
+            <td class="num delta-down">1,1 mi</td>
+            <td class="num">1,7 mi</td>
+            <td class="num">27,3 mi</td>
+          </tr>
+          <tr>
+            <td><b>Interações</b></td>
+            <td class="num">79,0 K</td>
+            <td class="num">70,1 K</td>
+            <td class="num">66,1 K</td>
+            <td class="num">16,2 K</td>
+            <td class="num">24,3 K</td>
+            <td class="num">255,6 K</td>
+          </tr>
+          <tr class="highlight">
+            <td><b>Cliques no link</b></td>
+            <td class="num">80,3 K</td>
+            <td class="num">113,2 K</td>
+            <td class="num delta-up">517,6 K</td>
+            <td class="num delta-down">7,4 K</td>
+            <td class="num">15,8 K</td>
+            <td class="num">734,3 K</td>
+          </tr>
+          <tr>
+            <td><b>Visitas ao perfil</b></td>
+            <td class="num delta-up">98,9 K</td>
+            <td class="num">77,1 K</td>
+            <td class="num">34,8 K</td>
+            <td class="num">8,9 K</td>
+            <td class="num">9,3 K</td>
+            <td class="num">228,9 K</td>
+          </tr>
+          <tr>
+            <td><b>Seguidores ganhos</b></td>
+            <td class="num delta-up">15,6 K</td>
+            <td class="num">10,4 K</td>
+            <td class="num">4,1 K</td>
+            <td class="num">2,3 K</td>
+            <td class="num">2,2 K</td>
+            <td class="num">34,6 K</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;font-size:13px;color:var(--muted);">
+        <b>Padrão narrativo:</b> Jan/Fev/Mar foram os meses do "vestibular season" — chegada do ENEM result, SISU, ProUni, FUVEST. Após o pico de inscrições, o conteúdo perdeu naturalmente relevância e o público engajado caiu. <b>Maio começa a mostrar leve recuperação.</b>
+      </p>
+    </div>
+
+    <!-- 1.2 Top Conteúdos -->
+    <h3 style="font-size:20px;font-weight:700;margin-top:32px;margin-bottom:12px;color:var(--brand-dark);">1.2 · Top 6 conteúdos do Instagram · 2026 YTD</h3>
+
+    <div class="card highlight-card" style="margin-bottom:24px;">
+      <h3 style="color:var(--brand-dark);">🔍 A descoberta: nem todo view é igual</h3>
+      <p style="font-size:15px;margin-top:10px;">Os 3 maiores reels foram <b>colabs com @estudantedepressao</b> (475K, 421K, 183K views). Mas os reels <b>orgânicos</b> de Notas de Corte (jan/26) converteram <b>15 a 18 vezes mais</b> em seguidores por view. Isso muda completamente a leitura sobre o que está "funcionando".</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="top-content-card">
+        <div style="padding: 18px;">
+          <span class="rank-badge gold">🥇 #1 em views</span>
+          <div class="title">"Se você já falou esse ano vou estudar pro ENEM..." (BBB paredão)</div>
+          <span class="meta-tag collab">colab @estudantedepressao</span>
+          <span class="meta-tag">27/fev/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">475,8 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">199,9 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">25,6 K</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--red);">+12</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v" style="color:var(--red);">0,003%</span></div>
+        </div>
+      </div>
+
+      <div class="top-content-card">
+        <div style="padding: 18px;">
+          <span class="rank-badge silver">🥈 #2 em views</span>
+          <div class="title">"Você quer ser protagonista ou planta da edição no ENEM 2026?"</div>
+          <span class="meta-tag collab">colab @estudantedepressao</span>
+          <span class="meta-tag">7/mar/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">421,9 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">175,8 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">7,4 K</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--red);">+4</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v" style="color:var(--red);">0,001%</span></div>
+        </div>
+      </div>
+
+      <div class="top-content-card">
+        <div style="padding: 18px;">
+          <span class="rank-badge bronze">🥉 #3 em views</span>
+          <div class="title">"Você está estudando para o ENEM sem saber se tá no caminho certo?" (Simulado grátis)</div>
+          <span class="meta-tag collab">colab @estudantedepressao</span>
+          <span class="meta-tag">24/abr/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">183,9 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">82,2 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">3,3 K</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--red);">+2</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v" style="color:var(--red);">0,001%</span></div>
+        </div>
+      </div>
+
+      <div class="top-content-card" style="border: 2px solid var(--green);">
+        <div style="padding: 18px;">
+          <span class="rank-badge" style="background:var(--green);">🏆 Melhor em conversão</span>
+          <div class="title">Notas de Corte parciais — Medicina</div>
+          <span class="meta-tag organic">conteúdo próprio</span>
+          <span class="meta-tag">20/jan/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">92,9 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">35,7 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">2,2 K</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--green);">+50</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v" style="color:var(--green);">0,054%</span></div>
+        </div>
+      </div>
+
+      <div class="top-content-card">
+        <div style="padding: 18px;">
+          <span class="rank-badge">#5</span>
+          <div class="title">Notas de Corte parciais — Psicologia</div>
+          <span class="meta-tag organic">conteúdo próprio</span>
+          <span class="meta-tag">21/jan/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">71,1 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">32,3 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">1,9 K</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--green);">+29</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v" style="color:var(--green);">0,041%</span></div>
+        </div>
+      </div>
+
+      <div class="top-content-card">
+        <div style="padding: 18px;">
+          <span class="rank-badge">#6</span>
+          <div class="title">"Atenção às datas do PROUNI 2026!"</div>
+          <span class="meta-tag organic">conteúdo próprio</span>
+          <span class="meta-tag">22/jan/2026</span>
+          <div class="metric-row"><span>Visualizações</span><span class="v" style="color:var(--ig);">61,0 K</span></div>
+          <div class="metric-row"><span>Alcance</span><span class="v">36,6 K</span></div>
+          <div class="metric-row"><span>Interações</span><span class="v">847</span></div>
+          <div class="metric-row"><span>Seguidores</span><span class="v" style="color:var(--yellow);">+6</span></div>
+          <div class="metric-row"><span>Conversão view→follow</span><span class="v">0,010%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:24px;">
+      <h3>Eficiência de aquisição · seguidores por 100K views</h3>
+      <div class="chart-wrap"><canvas id="topPostsEfficiency"></canvas></div>
+      <p class="note" style="margin-top:12px;font-size:13px;color:var(--muted);">
+        <b>Insight crítico:</b> Notas de Corte Medicina entrega <b>53,8 seguidores a cada 100K views</b>. O reel viral em colab entrega <b>2,5 seguidores</b> nessa mesma escala. Para crescer audiência, conteúdo próprio é 21x mais eficiente.
+      </p>
+    </div>
+  </section>
+
+  <!-- LEADS BREVO -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">2</span> Base de Leads · Brasil (Brevo)</h2>
+      <span class="lead">Volume 2024 / 2025 / 2026 YTD · 191.496 contatos acumulados</span>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card platform-leads">
+        <h3>Total acumulado</h3>
+        <div class="big" style="color:#6366F1;">191.496</div>
+        <div class="note">2024 + 2025 + 2026 YTD</div>
+      </div>
+      <div class="card platform-leads">
+        <h3>Crescimento 24→25</h3>
+        <div class="big" style="color:var(--green);">+314,9%</div>
+        <div class="note">+92.501 contatos</div>
+      </div>
+      <div class="card platform-leads">
+        <h3>2026 YTD</h3>
+        <div class="big">40.177</div>
+        <div class="note">Projeção: ~96K no ano</div>
+      </div>
+      <div class="card platform-leads">
+        <h3>Média anual (24+25)</h3>
+        <div class="big">75.659</div>
+        <div class="note">Base de referência</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Volume de leads por ano</h3>
+      <div class="chart-wrap"><canvas id="leadsYear"></canvas></div>
+      <table style="margin-top:20px;">
+        <thead>
+          <tr>
+            <th>Ano</th>
+            <th class="num">Leads captados</th>
+            <th class="num">Participação no total</th>
+            <th>Contexto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>2024</b></td>
+            <td class="num">29.409</td>
+            <td class="num">15,4%</td>
+            <td>Base em formação · fontes ainda não consolidadas</td>
+          </tr>
+          <tr class="highlight">
+            <td><b>2025</b></td>
+            <td class="num">121.910</td>
+            <td class="num">63,7%</td>
+            <td>🚀 Pico de captação · foco total em aquisição</td>
+          </tr>
+          <tr>
+            <td><b>2026 YTD (jan-mai)</b></td>
+            <td class="num">40.177</td>
+            <td class="num">21,0%</td>
+            <td>Foco em qualidade · projeção ~96K no ano</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        <b>Leitura correta:</b> A "queda" de 2025 para 2026 é artefato de período (12 meses vs 5 meses). A projeção linear coloca 2026 em ~96K leads — abaixo de 2025 mas ainda <b>3,3x maior que 2024</b>. A estratégia mudou para qualidade.
+      </p>
+    </div>
+  </section>
+
+  <!-- COMUNIDADD -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">3</span> Comunidadd WhatsApp</h2>
+      <span class="lead">De 893 a 7.440 membros em 14 meses (+733%)</span>
+    </div>
+    <div class="grid grid-3">
+      <div class="card platform-wa">
+        <h3>Membros hoje</h3>
+        <div class="big" style="color:var(--wa);">7.440</div>
+        <div class="delta up">▲ +733% desde mar/25</div>
+        <div class="note">+6.547 membros em 14 meses</div>
+      </div>
+      <div class="card platform-wa">
+        <h3>Fim do Q2 2025</h3>
+        <div class="big">3.341</div>
+        <div class="note">30/jun/2025 (+274% vs início)</div>
+      </div>
+      <div class="card platform-wa">
+        <h3>Crescimento mai/25 → mai/26</h3>
+        <div class="big" style="color:var(--green);">+4.099</div>
+        <div class="note">Aceleração após Q2/25</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <h3>Evolução de membros · Comunidadd 2025 + hoje</h3>
+      <div class="chart-wrap tall"><canvas id="comunidaddTotal"></canvas></div>
+      <p class="note" style="margin-top:12px;color:var(--muted);font-size:13px;">
+        <b>Dados reais agora (não mais estimados):</b> 893 (31/mar/25) → 3.300 (30/jun/25) → 5.340 (30/jul/25) → 7.176 (31/ago/25) → 7.253 (set/25) → 7.123 (out/25) → 7.042 (31/dez/25) → 7.440 (hoje, mai/26).
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Os 3 momentos da Comunidadd</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>Período</th>
+            <th class="num">Inicial</th>
+            <th class="num">Final</th>
+            <th class="num">Δ membros</th>
+            <th>Leitura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td><b>🚀 Decolagem</b></td>
+            <td>mar/25 → ago/25</td>
+            <td class="num">893</td>
+            <td class="num">7.176</td>
+            <td class="num delta-up">+6.283</td>
+            <td>Crescimento exponencial em 5 meses · +703%</td>
+          </tr>
+          <tr>
+            <td>⏸️ Platô</td>
+            <td>set/25 → dez/25</td>
+            <td class="num">7.253</td>
+            <td class="num">7.042</td>
+            <td class="num delta-down">-211</td>
+            <td>Estagnou no Q4/25 · perdeu 1,2% de base</td>
+          </tr>
+          <tr>
+            <td>📈 Recuperação</td>
+            <td>jan/26 → hoje</td>
+            <td class="num">7.042</td>
+            <td class="num">7.440</td>
+            <td class="num delta-up">+398</td>
+            <td>Voltou a crescer · +5,6% em 5 meses</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        <b>Pergunta-chave:</b> O que aconteceu em set-out/25 que parou o crescimento? Pode ter sido (1) saturação do público inicial, (2) mudança de estratégia editorial, (3) WhatsApp limitando comunidades, ou (4) descontinuidade do tracking. Vale investigar.
+      </p>
+    </div>
+  </section>
+
+  <!-- TWITTER/X -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">4</span> Twitter/X — o canal orgânico inesperado</h2>
+      <span class="lead">Mesmo fora da estratégia ativa, vendas cresceram</span>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card platform-x" style="border-top: 4px solid #000;">
+        <h3>2024</h3>
+        <div class="big">0</div>
+        <div class="note">vendas vindo de Twitter</div>
+      </div>
+      <div class="card platform-x" style="border-top: 4px solid #000;">
+        <h3>2025</h3>
+        <div class="big">13</div>
+        <div class="delta up">▲ Start orgânico</div>
+        <div class="note">Em pesquisa pós-matrícula (resposta livre)</div>
+      </div>
+      <div class="card platform-x highlight-card" style="border-top: 4px solid #000;">
+        <h3 style="color:var(--brand-dark);">2026 YTD</h3>
+        <div class="big" style="color:var(--brand-dark);">16</div>
+        <div class="delta up">▲ +23% vs 2025 (ano inteiro)</div>
+        <div class="note">Cresceu +23% sem investimento ativo</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Crescimento de vendas via Twitter/X</h3>
+      <div class="chart-wrap"><canvas id="twitterSales"></canvas></div>
+      <p class="note" style="margin-top:12px;color:var(--muted);font-size:13px;">
+        <b>O paradoxo:</b> em 2026, a estratégia tirou Twitter/X do foco. Mesmo assim, <b>já em 5 meses ultrapassou o ano de 2025 inteiro em volume de vendas</b>. Sinaliza que existe demanda orgânica no canal que estamos ignorando — vale reaver a decisão.
+      </p>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:20px;">
+      <div class="card" style="border-left:4px solid #000;">
+        <h3>Status atual</h3>
+        <ul style="margin-top:10px;list-style:none;padding:0;font-size:14px;">
+          <li style="padding:6px 0;">▶ Twitter/X fora da estratégia ativa em 2026</li>
+          <li style="padding:6px 0;">▶ Crescimento aconteceu organicamente</li>
+          <li style="padding:6px 0;">▶ Fase de <b>experimentação</b> em curso</li>
+          <li style="padding:6px 0;">▶ Objetivo: <b>voltar a crescer Twitter/X em breve</b></li>
+        </ul>
+      </div>
+      <div class="card highlight-card">
+        <h3 style="color:var(--brand-dark);">Por que importa</h3>
+        <p style="font-size:14px;margin-top:8px;">Se 16 vendas vieram <b>sem investimento</b>, qual seria o potencial com uma estratégia ativa? Vale calcular CAC implícito do Twitter vs IG/TikTok antes de definir budget 2026 H2.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUTUBE MENSAL COMPLETO -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">5</span> YouTube Filadd Brasil — mês a mês (2024 → 2026)</h2>
+      <span class="lead">Trajetória completa em visualizações mensais</span>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card platform-yt">
+        <h3>2024 (ano completo)</h3>
+        <div class="big" style="color:var(--yt);">805,5 K</div>
+        <div class="note">Média 67K/mês · ano fraco</div>
+      </div>
+      <div class="card platform-yt">
+        <h3>2025 (ano completo)</h3>
+        <div class="big" style="color:var(--yt);">2,84 mi</div>
+        <div class="delta up">▲ +253% vs 2024</div>
+        <div class="note">Média 237K/mês</div>
+      </div>
+      <div class="card platform-yt highlight-card">
+        <h3 style="color:var(--brand-dark);">2026 YTD (jan-mai)</h3>
+        <div class="big" style="color:var(--brand-dark);">7,43 mi</div>
+        <div class="delta up">▲ +161% vs ano todo 2025</div>
+        <div class="note"><b>Em 5 meses superou 2x o ano 2025 inteiro</b></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Visualizações mensais YouTube · 2024 → 2026</h3>
+      <div class="chart-wrap tall"><canvas id="ytMonthly"></canvas></div>
+      <p class="note" style="margin-top:12px;color:var(--muted);font-size:13px;">
+        <b>O ponto de inflexão:</b> nov-dez/25 começou a escalar (162K→675K) e <b>jan/26 quebrou tudo</b> (1,6M num único mês). Pico em <b>março/26 com 3,05M de views</b>. Depois desaba: abr (276K) e mai parcial (17K).
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Detalhamento mensal · 2024 vs 2025 vs 2026 YTD</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th class="num">2024</th>
+            <th class="num">2025</th>
+            <th class="num">2026</th>
+            <th class="num">Δ 2026 vs 2025</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Janeiro</td><td class="num">103,2 K</td><td class="num">202,8 K</td><td class="num">1.645,1 K</td><td class="num delta-up">+711%</td></tr>
+          <tr><td>Fevereiro</td><td class="num">67,4 K</td><td class="num">595,1 K</td><td class="num">2.439,9 K</td><td class="num delta-up">+310%</td></tr>
+          <tr class="highlight"><td><b>Março (pico 2026)</b></td><td class="num">353,0 K</td><td class="num">370,5 K</td><td class="num">3.049,9 K</td><td class="num delta-up">+723%</td></tr>
+          <tr><td>Abril</td><td class="num">23,2 K</td><td class="num">121,5 K</td><td class="num">276,2 K</td><td class="num delta-up">+127%</td></tr>
+          <tr><td>Maio (parcial)</td><td class="num">43,4 K</td><td class="num">60,4 K</td><td class="num">17,3 K</td><td class="num delta-down">-71%</td></tr>
+          <tr><td>Junho</td><td class="num">20,7 K</td><td class="num">128,2 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Julho</td><td class="num">17,7 K</td><td class="num">85,1 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Agosto</td><td class="num">72,1 K</td><td class="num">57,3 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Setembro</td><td class="num">28,1 K</td><td class="num">69,9 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Outubro</td><td class="num">23,9 K</td><td class="num">314,5 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Novembro</td><td class="num">47,2 K</td><td class="num">162,1 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Dezembro</td><td class="num">5,6 K</td><td class="num">674,8 K</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr class="highlight"><td><b>TOTAL</b></td><td class="num">805,5 K</td><td class="num">2.842,1 K</td><td class="num">7.428,3 K</td><td class="num delta-up">+161% vs ano 2025 cheio</td></tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        <b>O canal virou um foguete:</b> 2024 média 67K/mês → 2025 média 237K/mês → 2026 média (jan-mar) <b>2,4 milhões/mês</b>. É um crescimento de 35x na média mensal vs 2024. Coincide com o salto do Instagram (jan/26 → 15K seguidores num mês).
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ASSESSORIA DE IMPRENSA -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">6</span> Assessoria de Imprensa · Mídia Ganha</h2>
+      <span class="lead">Parceria com RelatioNow (Ramona Azevedo e Kaynan Ebenau)</span>
+    </div>
+
+    <div class="card highlight-card">
+      <h3 style="color:var(--brand-dark);">🎯 Por que isso entra na análise de marca</h3>
+      <p style="font-size:15px;margin-top:10px;">
+        Mesmo representando apenas <b>0,83% das matrículas diretas</b> (38 alunos citaram "reportagem/portal de notícias" como origem), a assessoria de imprensa é um <b>investimento estratégico em posicionamento e branding de longo prazo</b>. Cada matéria publicada constrói credibilidade institucional, alimenta SEO da marca, gera prova social para os outros canais e legitima a Filadd como referência em educação no Brasil. <b>É o tipo de capital de marca que demora a colher, mas é o mais difícil de replicar pela concorrência.</b>
+      </p>
+    </div>
+
+    <!-- HIGHLIGHT GERAL 2026 YTD -->
+    <div class="grid grid-3" style="margin-top:20px;">
+      <div class="card platform-leads highlight-card">
+        <h3 style="color:var(--brand-dark);">Acumulado 2026 YTD</h3>
+        <div class="big" style="color:var(--brand-dark);">115</div>
+        <div class="note"><b>matérias publicadas em jan→mai/26</b></div>
+      </div>
+      <div class="card platform-leads highlight-card">
+        <h3 style="color:var(--brand-dark);">Equivalência publicitária</h3>
+        <div class="big" style="color:var(--brand-dark);">R$ 561K</div>
+        <div class="note"><b>R$ 297K (Q1) + R$ 121K (Abr) + R$ 142K (Mai parc.)</b></div>
+      </div>
+      <div class="card platform-leads highlight-card">
+        <h3 style="color:var(--brand-dark);">Page views (estimado)</h3>
+        <div class="big" style="color:var(--brand-dark);">~2,8 mi</div>
+        <div class="note">Alcance estimado em portais brasileiros</div>
+      </div>
+    </div>
+
+    <!-- Q1 2026 SEPARADO POR MÊS -->
+    <div class="card" style="margin-top:24px;">
+      <h3>Q1 2026 · Volume mensal de matérias (RelatioNOW)</h3>
+      <div class="chart-wrap"><canvas id="imprensaQ1Mensal"></canvas></div>
+      <table style="margin-top:20px;">
+        <thead>
+          <tr>
+            <th>Mês</th>
+            <th class="num">Matérias</th>
+            <th class="num">% do Q1</th>
+            <th>Contexto editorial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Janeiro 2026</b></td><td class="num">11</td><td class="num">13,75%</td><td>Pauta de divulgação ENEM e início do planejamento SISU 2026</td></tr>
+          <tr class="highlight"><td><b>Fevereiro 2026</b></td><td class="num">39</td><td class="num">48,75%</td><td>🔥 Pico do trimestre · pauta migrou para 89% de aprovação em vestibulares (97,1% NE e 91,5% Sul)</td></tr>
+          <tr><td><b>Março 2026</b></td><td class="num">30</td><td class="num">37,50%</td><td>Filadd em pautas de economia, negócios e inovação (techs latinas)</td></tr>
+          <tr class="highlight"><td><b>TOTAL Q1 2026</b></td><td class="num"><b>80</b></td><td class="num">100%</td><td>R$ 297.800,00 em equivalência publicitária</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ABRIL E MAIO 2026 -->
+    <div class="grid grid-2" style="margin-top:20px;">
+      <div class="card platform-leads">
+        <h3>Abril 2026 (mês completo)</h3>
+        <table style="margin-top:8px;">
+          <tbody>
+            <tr><td>Matérias</td><td class="num"><b>14</b></td></tr>
+            <tr><td>Page views</td><td class="num"><b>929.000</b></td></tr>
+            <tr><td>Equivalência publicitária</td><td class="num"><b>R$ 121.000</b></td></tr>
+            <tr><td>Veículos</td><td class="num">9 portais</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card platform-leads">
+        <h3>Maio 2026 (01-11 · parcial)</h3>
+        <table style="margin-top:8px;">
+          <tbody>
+            <tr><td>Matérias</td><td class="num"><b>21</b></td></tr>
+            <tr><td>Page views</td><td class="num"><b>849.000</b></td></tr>
+            <tr><td>Equivalência publicitária</td><td class="num"><b>R$ 142.300</b></td></tr>
+            <tr><td>Veículos</td><td class="num">~20 portais</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DISTRIBUIÇÃO REGIONAL Q1 2026 -->
+    <div class="card" style="margin-top:20px;">
+      <h3>Distribuição regional das matérias · Q1 2026</h3>
+      <div class="chart-wrap"><canvas id="imprensaRegional"></canvas></div>
+      <div class="grid grid-5" style="margin-top:16px;">
+        <div style="text-align:center;padding:12px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Sudeste</div>
+          <div style="font-size:22px;font-weight:800;color:var(--brand-dark);">80%</div>
+          <div style="font-size:11px;color:var(--muted);">SP 68% · RJ 11%</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Nordeste</div>
+          <div style="font-size:22px;font-weight:800;">10%</div>
+          <div style="font-size:11px;color:var(--muted);">PE 5% · BA 3% · AL 1%</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Norte</div>
+          <div style="font-size:22px;font-weight:800;">5%</div>
+          <div style="font-size:11px;color:var(--muted);">PA 4% · AM 1%</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Centro-Oeste</div>
+          <div style="font-size:22px;font-weight:800;">3%</div>
+          <div style="font-size:11px;color:var(--muted);">DF 1%</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:var(--bg);border-radius:10px;">
+          <div style="font-size:11px;color:var(--muted);text-transform:uppercase;">Sul</div>
+          <div style="font-size:22px;font-weight:800;">3%</div>
+          <div style="font-size:11px;color:var(--muted);">SC 3%</div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        100% das matérias publicadas em mídia online. Forte concentração no Sudeste (80%), com São Paulo respondendo sozinho por 68% das publicações.
+      </p>
+    </div>
+
+    <!-- RELEASES Q1 2026 -->
+    <div class="card" style="margin-top:20px;">
+      <h3>Releases divulgados no Q1 2026 (7 pautas estratégicas)</h3>
+      <div class="grid grid-2" style="margin-top:14px;">
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Divulgação do ENEM marca início do planejamento para o SISU 2026</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Filadd alcança 89% de aprovação em vestibulares e consolida novo modelo de preparação personalizada</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Filadd registra aprovações regionais: 91,5% Sul · 88,5% Sudeste · 97,1% Nordeste · 81,3% Norte · 80,6% Centro-Oeste</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Antes do ENEM, você precisa fazer isso: cinco passos para sair da inércia e estudar com consistência</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Preparação para o ENEM 2026: quem começa com método sai na frente na disputa por vagas</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;">📰 Da sala de aula ao mercado: as techs latinas que acompanham toda a jornada do cidadão moderno</div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        <b>Matérias em destaque (Q1):</b> Correio do Pará · Nidde Digital ("Filadd registra 97,1% no Nordeste") · SEGS ("Divulgação do ENEM marca início do planejamento SISU 2026").
+      </p>
+    </div>
+
+    <!-- RELEASES ABR/MAI 2026 -->
+    <div class="card" style="margin-top:20px;">
+      <h3>Releases ativos em Abril + Maio 2026 (3 pautas)</h3>
+      <div class="grid grid-3" style="margin-top:14px;">
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;margin-bottom:6px;">📰 "Profissões do futuro lideram aprovações da Filadd em 2026"</div>
+          <div style="font-size:13px;color:var(--muted);">Distribuído em ~7 veículos. Posicionamento: data-driven, referência em análise de mercado.</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;margin-bottom:6px;">📰 "Quem passou no Enem 2025 conta o que funcionou de verdade"</div>
+          <div style="font-size:13px;color:var(--muted);">Distribuído em ~7 veículos. Posicionamento: storytelling com aprovados, prova social.</div>
+        </div>
+        <div style="padding:14px;background:var(--bg);border-radius:10px;border-left:4px solid #6366F1;">
+          <div style="font-weight:700;font-size:14px;margin-bottom:6px;">📰 "Simulado gratuito replica método oficial do ENEM"</div>
+          <div style="font-size:13px;color:var(--muted);">Distribuído em ~20 veículos · Maio (release de maior alcance). Posicionamento: utilidade prática.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VEÍCULOS -->
+    <div class="card" style="margin-top:20px;">
+      <h3>Principais veículos identificados (2026 YTD)</h3>
+      <p style="margin-top:8px;font-size:14px;">
+        <b>Portais econômicos/negócios:</b> Poder e Negócios · IstoÉ Negócios · Business Week · Folha Negócios · Handelsblatt · U.S. News · Sucess Magazine · SEGS
+      </p>
+      <p style="margin-top:8px;font-size:14px;">
+        <b>Portais regionais:</b> Correio do Pará · Jornal do Belém · Jornal do Brás · Jornal do Recife · Correio do Ceará · Correio do Alagoas · Diário Sul Maranhense · Gazeta de Brasília · Gazeta da Semana · Isto É Rio · Isto É Bahia · Isto É SC · Isto É Floripa
+      </p>
+      <p style="margin-top:8px;font-size:14px;">
+        <b>Portais especializados/setoriais:</b> Sala da Notícia · Revista KDea 360 · Voz do Bairro · Mova-se Empreendedor · Nidde Digital · People Brasil · Look Magazine · Isto É Tech · Justiça News · Jurídico News
+      </p>
+      <p class="note" style="margin-top:14px;color:var(--muted);font-size:13px;">
+        ⚠️ <b>Observação:</b> a estratégia atual está concentrada em portais segmentados, regionais e econômicos. Os grandes veículos nacionais (G1, UOL Educação, Folha, Estadão) ainda não aparecem como destino regular — há um e-mail de novembro/25 com <b>solicitação do G1 para cobertura do ENEM com professores Filadd</b> que vale acompanhar.
+      </p>
+    </div>
+
+    <!-- LEITURA -->
+    <div class="card highlight-card" style="margin-top:20px;">
+      <h3 style="color:var(--brand-dark);">💡 Leitura para a apresentação</h3>
+      <ul style="margin-top:10px;padding-left:20px;font-size:14px;">
+        <li style="margin-bottom:8px;"><b>115 matérias publicadas em 5 meses</b> com R$ 561K em equivalência publicitária. Se o ritmo se mantiver, fechamos o ano em <b>~280 matérias e R$ 1,3M de mídia ganha</b>.</li>
+        <li style="margin-bottom:8px;"><b>Fevereiro foi o mês de pico do Q1</b> (39 matérias, quase metade do trimestre): pauta de aprovações regionais ressoou forte.</li>
+        <li style="margin-bottom:8px;"><b>Maio acelerou:</b> em 11 dias já entregou +50% das matérias de Abril inteiro. Release "Simulado gratuito" viralizou em 20 veículos.</li>
+        <li style="margin-bottom:8px;"><b>Conversão direta é baixa (0,83% das matrículas citaram "reportagem")</b> — natural, assessoria é canal de posicionamento, não de performance.</li>
+        <li><b>Próximo passo:</b> mirar grandes veículos nacionais (G1, UOL, Folha, Estadão) para amplificar credibilidade institucional.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TIKTOK - SEÇÃO PRÓPRIA -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">7</span> TikTok @filadd · o canal de descoberta em massa</h2>
+      <span class="lead">Visão completa: seguidores, views, engajamento e comparativo 2024 → 2025/26</span>
+    </div>
+
+    <div class="grid grid-4">
+      <div class="card platform-tt">
+        <h3>Total de seguidores</h3>
+        <div class="big" style="color:var(--tt);">176K</div>
+        <div class="delta down">▼ vs pico 182K em jan/25</div>
+        <div class="note">Líquido últimos 365d: +16,1K</div>
+      </div>
+      <div class="card platform-tt">
+        <h3>Visualizações de vídeo</h3>
+        <div class="big" style="color:var(--tt);">114,8 mi</div>
+        <div class="delta up">▲ vs 13,8M em 2024</div>
+        <div class="note">+700% em volume bruto</div>
+      </div>
+      <div class="card platform-tt">
+        <h3>Visualizações de perfil</h3>
+        <div class="big" style="color:var(--tt);">356,2 mil</div>
+        <div class="delta up">▲ +288% vs 2024 (91,7K)</div>
+        <div class="note">Descoberta segue forte</div>
+      </div>
+      <div class="card platform-tt">
+        <h3>Engajamento total</h3>
+        <div class="big" style="color:var(--tt);">465 mil</div>
+        <div class="delta flat">— Estável</div>
+        <div class="note">435,6K curtidas + 30K shares</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Comparativo 2024 vs 2025/26 (últimos 365 dias)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Métrica</th>
+            <th class="num">2024</th>
+            <th class="num">2025/26 (365d)</th>
+            <th class="num">Δ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td><b>Visualizações de vídeo</b></td><td class="num">13,8 mi</td><td class="num">114,8 mi</td><td class="num delta-up">+731%</td></tr>
+          <tr><td>Público alcançado</td><td class="num">12,6 mi</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Visualizações de perfil</td><td class="num">91,7 K</td><td class="num">356,2 K</td><td class="num delta-up">+288%</td></tr>
+          <tr><td>Curtidas</td><td class="num">1,8 mi</td><td class="num">435,6 K</td><td class="num delta-down">-76%</td></tr>
+          <tr><td>Comentários</td><td class="num">39 K</td><td class="num">4,1 K</td><td class="num delta-down">-89%</td></tr>
+          <tr><td>Compartilhamentos</td><td class="num">180 K</td><td class="num">30 K</td><td class="num delta-down">-83%</td></tr>
+          <tr class="highlight"><td><b>Seguidores ganhos (líquido)</b></td><td class="num">+108K</td><td class="num">+16,1K</td><td class="num delta-down">-85%</td></tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;font-size:14px;color:var(--text);">
+        <b>A história em uma frase:</b> O TikTok virou um canal de <b>descoberta em massa (views 7x maiores)</b> mas <b>com profundidade muito menor</b> — engajamento caiu 76-89% e conversão view→follow despencou 85%.
+      </p>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:20px;">
+      <div class="card platform-tt">
+        <h3>🚀 O que está funcionando</h3>
+        <ul style="margin-top:10px;padding-left:20px;font-size:14px;">
+          <li style="margin-bottom:6px;"><b>Descoberta de marca:</b> 114,8M views é um alcance massivo de awareness</li>
+          <li style="margin-bottom:6px;"><b>Visitas ao perfil cresceram +288%:</b> quem vê está visitando o perfil</li>
+          <li style="margin-bottom:6px;"><b>Atinge o público alvo:</b> formato curto + temas ENEM/vestibular ressoam com 16-24</li>
+          <li><b>Top of funnel barato:</b> reach orgânico continua sendo a maior fonte de awareness do orçamento</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:4px solid var(--red);">
+        <h3 style="color:#991B1B;">⚠️ Os sinais de alerta</h3>
+        <ul style="margin-top:10px;padding-left:20px;font-size:14px;">
+          <li style="margin-bottom:6px;"><b>Conversão view→follow caiu 85%:</b> de 108K seguidores líquidos em 2024 para 16K em 365 dias</li>
+          <li style="margin-bottom:6px;"><b>Engajamento mais raso:</b> curtidas -76%, comentários -89%, shares -83%</li>
+          <li style="margin-bottom:6px;"><b>FYP servindo, audiência não fica:</b> algoritmo entrega volume mas não retém</li>
+          <li><b>Padrão repetido no IG:</b> mesma curva — view aumenta, audiência não cresce no mesmo ritmo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card highlight-card" style="margin-top:20px;">
+      <h3 style="color:var(--brand-dark);">📊 Pesquisa de origem · TikTok como canal de matrícula</h3>
+      <p style="font-size:15px;margin-top:10px;">
+        Pelo lado das matrículas reais (pesquisa "Como conheceram a Filadd?"): em 2025 o TikTok era <b>responsável por 29,58% das origens identificadas</b> (63 de 213). Em 2026 YTD, <b>caiu para 1,14%</b> (2 de 176). Isso indica que o canal continua útil para awareness, mas <b>não está fechando a venda</b> como em 2025.
+      </p>
+    </div>
+  </section>
+
+  <!-- DEMOGRAFIA -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">8</span> Demografia do público · onde estão e quem são</h2>
+      <span class="lead">Onde nossos alunos moram (2024 → 2025 → 2026) + perfil do público no Instagram</span>
+    </div>
+
+    <!-- 7.1 Estados (alunos) -->
+    <h3 style="font-size:20px;font-weight:700;margin-top:12px;margin-bottom:12px;color:var(--brand-dark);">8.1 · Onde nossos alunos moram (share por estado)</h3>
+
+    <div class="card highlight-card">
+      <h3 style="color:var(--brand-dark);">⚠️ Por que comparamos % (e não números absolutos)</h3>
+      <p style="font-size:14px;margin-top:8px;">
+        2024 (n=744) tinha tracking parcial e 2026 (n=4.603) é YTD de 5 meses. <b>Comparar números absolutos seria injusto</b>. A análise correta é por <b>share do total de cada ano</b> — assim vemos onde a marca <i>concentrou ou perdeu participação</i>, independente do volume bruto.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Distribuição por região · % do total de matrículas</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Região</th>
+            <th class="num">2024</th>
+            <th class="num">2025</th>
+            <th class="num">2026 YTD</th>
+            <th class="num">Δ 24→26</th>
+            <th>Leitura</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td><b>Sudeste</b><br><span style="font-size:11px;color:var(--muted);">SP+MG+RJ+ES</span></td><td class="num">49,9%</td><td class="num">55,0%</td><td class="num">57,7%</td><td class="num delta-up">+7,8 pp</td><td>🚀 Concentrou forte</td></tr>
+          <tr><td><b>Sul</b><br><span style="font-size:11px;color:var(--muted);">PR+RS+SC</span></td><td class="num">13,6%</td><td class="num">13,4%</td><td class="num">13,3%</td><td class="num">-0,3 pp</td><td>— Estável</td></tr>
+          <tr><td><b>Centro-Oeste</b><br><span style="font-size:11px;color:var(--muted);">GO+DF+MT+MS</span></td><td class="num">10,2%</td><td class="num">9,9%</td><td class="num">9,9%</td><td class="num">-0,3 pp</td><td>— Estável</td></tr>
+          <tr><td><b>Norte</b><br><span style="font-size:11px;color:var(--muted);">PA+RO+AM+AC+TO+AP+RR</span></td><td class="num">7,1%</td><td class="num">6,8%</td><td class="num">5,2%</td><td class="num delta-down">-1,9 pp</td><td>🔻 Perdendo share</td></tr>
+          <tr><td><b>Nordeste</b><br><span style="font-size:11px;color:var(--muted);">BA+PE+CE+RN+PB+MA+AL+SE+PI</span></td><td class="num">19,2%</td><td class="num">15,0%</td><td class="num">13,9%</td><td class="num delta-down">-5,3 pp</td><td>🔻 Queda forte</td></tr>
+        </tbody>
+      </table>
+      <p class="note" style="margin-top:14px;font-size:14px;color:var(--text);">
+        <b>A história em uma frase:</b> A marca está <b>concentrando no Sudeste</b> (especialmente RJ e MG) e <b>perdendo participação no Nordeste e Norte</b>.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Os 27 estados · share % por ano e Δ pp (2024 → 2026 YTD)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Estado</th>
+            <th class="num">2024 %</th>
+            <th class="num">2025 %</th>
+            <th class="num">2026 %</th>
+            <th class="num">Δ pp</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight"><td>1</td><td><b>São Paulo</b></td><td class="num">28,36%</td><td class="num">28,86%</td><td class="num">28,98%</td><td class="num delta-up">+0,62</td><td>🟢 Cresceu</td></tr>
+          <tr><td>2</td><td>Minas Gerais</td><td class="num">13,44%</td><td class="num">14,93%</td><td class="num">15,49%</td><td class="num delta-up">+2,05</td><td>🟢 Cresceu</td></tr>
+          <tr class="highlight"><td>3</td><td><b>Rio de Janeiro</b></td><td class="num">6,05%</td><td class="num">8,71%</td><td class="num">10,28%</td><td class="num delta-up">+4,23</td><td>🚀 Maior salto</td></tr>
+          <tr><td>4</td><td>Rio Grande do Sul</td><td class="num">5,11%</td><td class="num">5,35%</td><td class="num">5,84%</td><td class="num delta-up">+0,74</td><td>🟢 Cresceu</td></tr>
+          <tr><td>5</td><td>Bahia</td><td class="num">6,59%</td><td class="num">5,68%</td><td class="num">5,50%</td><td class="num delta-down">-1,09</td><td>🔴 Caiu</td></tr>
+          <tr><td>6</td><td>Paraná</td><td class="num">5,24%</td><td class="num">4,87%</td><td class="num">4,65%</td><td class="num delta-down">-0,59</td><td>🔴 Caiu</td></tr>
+          <tr><td>7</td><td>Goiás</td><td class="num">3,76%</td><td class="num">3,42%</td><td class="num">3,30%</td><td class="num">-0,46</td><td>— Estável</td></tr>
+          <tr><td>8</td><td>Espírito Santo</td><td class="num">2,02%</td><td class="num">2,46%</td><td class="num">2,91%</td><td class="num delta-up">+0,90</td><td>🟢 Cresceu</td></tr>
+          <tr><td>9</td><td>Santa Catarina</td><td class="num">3,23%</td><td class="num">3,15%</td><td class="num">2,82%</td><td class="num">-0,40</td><td>— Estável</td></tr>
+          <tr><td>10</td><td>Distrito Federal</td><td class="num">2,96%</td><td class="num">2,57%</td><td class="num">2,80%</td><td class="num">-0,15</td><td>— Estável</td></tr>
+          <tr><td>11</td><td>Mato Grosso</td><td class="num">2,02%</td><td class="num">2,39%</td><td class="num">2,17%</td><td class="num">+0,16</td><td>— Estável</td></tr>
+          <tr><td>12</td><td>Pará</td><td class="num">2,69%</td><td class="num">2,76%</td><td class="num">2,02%</td><td class="num delta-down">-0,67</td><td>🔴 Caiu</td></tr>
+          <tr><td>13</td><td>Pernambuco</td><td class="num">2,69%</td><td class="num">2,04%</td><td class="num">1,72%</td><td class="num delta-down">-0,97</td><td>🔴 Caiu</td></tr>
+          <tr><td>14</td><td>Mato Grosso do Sul</td><td class="num">1,48%</td><td class="num">1,50%</td><td class="num">1,63%</td><td class="num">+0,15</td><td>— Estável</td></tr>
+          <tr><td>15</td><td>Rio Grande do Norte</td><td class="num">1,21%</td><td class="num">1,31%</td><td class="num">1,28%</td><td class="num">+0,07</td><td>— Estável</td></tr>
+          <tr><td>16</td><td>Maranhão</td><td class="num">1,61%</td><td class="num">1,48%</td><td class="num">1,24%</td><td class="num">-0,37</td><td>— Estável</td></tr>
+          <tr><td>17</td><td>Ceará</td><td class="num">2,55%</td><td class="num">1,50%</td><td class="num">1,22%</td><td class="num delta-down">-1,34</td><td>🔻 Maior queda</td></tr>
+          <tr><td>18</td><td>Paraíba</td><td class="num">2,02%</td><td class="num">1,13%</td><td class="num">0,96%</td><td class="num delta-down">-1,06</td><td>🔴 Caiu</td></tr>
+          <tr><td>19</td><td>Amazonas</td><td class="num">1,08%</td><td class="num">0,74%</td><td class="num">0,76%</td><td class="num">-0,31</td><td>— Estável</td></tr>
+          <tr><td>20</td><td>Alagoas</td><td class="num">1,34%</td><td class="num">0,68%</td><td class="num">0,76%</td><td class="num delta-down">-0,58</td><td>🔴 Caiu</td></tr>
+          <tr><td>21</td><td>Rondônia</td><td class="num">1,34%</td><td class="num">1,24%</td><td class="num">0,72%</td><td class="num delta-down">-0,63</td><td>🔴 Caiu</td></tr>
+          <tr><td>22</td><td>Piauí</td><td class="num">0,81%</td><td class="num">0,63%</td><td class="num">0,67%</td><td class="num">-0,13</td><td>— Estável</td></tr>
+          <tr><td>23</td><td>Tocantins</td><td class="num">0,54%</td><td class="num">0,54%</td><td class="num">0,56%</td><td class="num">+0,03</td><td>— Estável</td></tr>
+          <tr><td>24</td><td>Sergipe</td><td class="num">0,40%</td><td class="num">0,52%</td><td class="num">0,56%</td><td class="num">+0,16</td><td>— Estável</td></tr>
+          <tr><td>25</td><td>Amapá</td><td class="num">0,27%</td><td class="num">0,50%</td><td class="num">0,48%</td><td class="num">+0,21</td><td>— Estável</td></tr>
+          <tr><td>26</td><td>Acre</td><td class="num">0,81%</td><td class="num">0,67%</td><td class="num">0,37%</td><td class="num">-0,44</td><td>— Estável</td></tr>
+          <tr><td>27</td><td>Roraima</td><td class="num">0,40%</td><td class="num">0,39%</td><td class="num">0,30%</td><td class="num">-0,10</td><td>— Estável</td></tr>
+          <tr class="highlight"><td></td><td><b>TOTAL (n)</b></td><td class="num">744</td><td class="num">5.405</td><td class="num">4.603</td><td class="num">—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>Variação % por estado · 2024 → 2026 YTD (em pp)</h3>
+      <div class="chart-wrap tall"><canvas id="alunosEstadosDelta"></canvas></div>
+      <p class="note" style="margin-top:12px;color:var(--muted);font-size:13px;">
+        Eixo vertical: variação em <b>pontos percentuais</b> do share total. Verde = ganhou participação, vermelho = perdeu.
+      </p>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:20px;">
+      <div class="card" style="border-left:4px solid var(--green);">
+        <h3 style="color:#065F46;">🚀 Top 5 que mais cresceram em share</h3>
+        <table style="margin-top:8px;">
+          <thead><tr><th>Estado</th><th class="num">Δ pp</th></tr></thead>
+          <tbody>
+            <tr><td><b>Rio de Janeiro</b></td><td class="num delta-up">+4,23 pp</td></tr>
+            <tr><td>Minas Gerais</td><td class="num delta-up">+2,05 pp</td></tr>
+            <tr><td>Espírito Santo</td><td class="num delta-up">+0,90 pp</td></tr>
+            <tr><td>Rio Grande do Sul</td><td class="num delta-up">+0,74 pp</td></tr>
+            <tr><td>São Paulo</td><td class="num delta-up">+0,62 pp</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="border-left:4px solid var(--red);">
+        <h3 style="color:#991B1B;">🔻 Top 5 que mais caíram em share</h3>
+        <table style="margin-top:8px;">
+          <thead><tr><th>Estado</th><th class="num">Δ pp</th></tr></thead>
+          <tbody>
+            <tr><td><b>Ceará</b></td><td class="num delta-down">-1,34 pp</td></tr>
+            <tr><td>Bahia</td><td class="num delta-down">-1,09 pp</td></tr>
+            <tr><td>Paraíba</td><td class="num delta-down">-1,06 pp</td></tr>
+            <tr><td>Pernambuco</td><td class="num delta-down">-0,97 pp</td></tr>
+            <tr><td>Pará</td><td class="num delta-down">-0,67 pp</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <h3>O que isso mostra de resultado</h3>
+      <ul style="margin-top:12px;list-style:none;padding:0;font-size:14px;">
+        <li style="padding:8px 0;border-bottom:1px solid var(--line);"><b>✅ Win regional:</b> O <b>Rio de Janeiro virou o 3º maior mercado</b> (10,3% em 2026 vs 6,05% em 2024). Isso indica que campanha, conteúdo ou indicação está convertendo melhor no RJ — vale identificar o que mudou.</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--line);"><b>✅ Sudeste se consolida:</b> 49,9% → 57,7% (+7,8 pp). SP + MG + RJ + ES respondem por quase 6 em cada 10 matrículas. <b>Mercado dominante e crescendo</b>.</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--line);"><b>⚠️ Nordeste perdendo:</b> 19,2% → 13,9% (-5,3 pp). É a maior queda regional. Ceará, Bahia, Paraíba e Pernambuco juntos perderam ~4,5 pp. Vale investigar: concorrência local? Posicionamento de preço? Conteúdo regional?</li>
+        <li style="padding:8px 0;border-bottom:1px solid var(--line);"><b>⚠️ Norte também caindo:</b> 7,1% → 5,2% (-1,9 pp). Pará, Rondônia e Acre puxaram a queda.</li>
+        <li style="padding:8px 0;"><b>📊 Sul e Centro-Oeste estáveis:</b> Mantiveram share. Indica que esses mercados estão crescendo no mesmo ritmo da base — não estamos ganhando nem perdendo participação relativa.</li>
+      </ul>
+    </div>
+
+    <!-- 7.2 Idade e gênero -->
+    <h3 style="font-size:20px;font-weight:700;margin-top:32px;margin-bottom:12px;color:var(--brand-dark);">8.2 · Idade e gênero do público no Instagram</h3>
+
+    <div class="grid grid-2">
+      <div class="card platform-ig">
+        <h3>Distribuição por faixa etária e gênero</h3>
+        <div class="chart-wrap"><canvas id="ageGender"></canvas></div>
+      </div>
+      <div class="card">
+        <h3>Resumo</h3>
+        <table style="margin-top:8px;">
+          <thead><tr><th>Faixa</th><th class="num">Mulheres</th><th class="num">Homens</th><th class="num">Total</th></tr></thead>
+          <tbody>
+            <tr class="highlight"><td><b>18-24</b></td><td class="num">29,2%</td><td class="num">18,9%</td><td class="num">48,1%</td></tr>
+            <tr><td>25-34</td><td class="num">17,8%</td><td class="num">14,8%</td><td class="num">32,6%</td></tr>
+            <tr><td>35-44</td><td class="num">6,7%</td><td class="num">3,5%</td><td class="num">10,2%</td></tr>
+            <tr><td>45-54</td><td class="num">4,5%</td><td class="num">1,9%</td><td class="num">6,4%</td></tr>
+            <tr><td>55-64</td><td class="num">1,3%</td><td class="num">0,6%</td><td class="num">1,9%</td></tr>
+            <tr><td>65+</td><td class="num">0,5%</td><td class="num">0,3%</td><td class="num">0,8%</td></tr>
+            <tr class="highlight"><td><b>TOTAL</b></td><td class="num">60,0%</td><td class="num">40,0%</td><td class="num">100%</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:12px;font-size:13px;color:var(--muted);">
+          <b>Público alvo (18-24) representa 48,1%</b> — sólido. Maioria feminina (60% vs 40%). 25-34 ainda é forte (32,6%), provável que sejam vestibulandos mais velhos ou famílias considerando matrículas.
+        </p>
+      </div>
+    </div>
+
+    <!-- 7.3 Cidades -->
+    <h3 style="font-size:20px;font-weight:700;margin-top:32px;margin-bottom:12px;color:var(--brand-dark);">8.3 · Principais cidades · público do Instagram</h3>
+
+    <div class="card">
+      <h3>Top 10 cidades · % do público</h3>
+      <div class="chart-wrap"><canvas id="topCidades"></canvas></div>
+      <p class="note" style="margin-top:12px;color:var(--muted);font-size:13px;">
+        <b>São Paulo lidera</b> com 5,9% do público total. Curitiba e Rio de Janeiro empatam em segundo. <b>Norte e Nordeste fortemente representados</b> no top 10: Fortaleza, São Luís, Salvador, Manaus, Recife.
+      </p>
+    </div>
+
+    <!-- 6.4 Países (sanity check) -->
+    <div class="card" style="margin-top:20px;">
+      <h3>Países do público no Instagram</h3>
+      <p style="margin-top:12px;font-size:15px;">
+        <b>Brasil: 99,6%</b> · Argentina: 0,2% · Colômbia: 0,1% · Portugal: 0,1% · Paraguai: 0,1%
+      </p>
+      <p class="note" style="margin-top:8px;font-size:13px;color:var(--muted);">Confirma que o canal está alinhado ao público-alvo geográfico. Sem dispersão internacional relevante.</p>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">9</span> Os 9 insights consolidados</h2>
+    </div>
+    <div class="insights">
+      <h3>Leituras-chave para a apresentação ao Nico</h3>
+      <ul>
+        <li class="win"><b>YouTube virou o motor exponencial:</b> 2024 = 805K views/ano · 2025 = 2,84M · 2026 (5 meses) = 7,43M. Em março/26 sozinho fez 3,05M — mais do que o ano de 2024 inteiro. <b>É o canal com maior aceleração de crescimento da operação.</b></li>
+        <li class="discover"><b>Colab vs orgânico:</b> reels com @estudantedepressao geram 5-7x mais views, mas convertem 20x menos em seguidores. Conteúdo próprio (Notas de Corte) tem ROI muito superior pra crescimento de audiência.</li>
+        <li class="warning"><b>Comunidadd estagnou no Q4/25:</b> cresceu 8x em 5 meses (mar-ago/25), mas ficou parada de set/25 a dez/25 e até perdeu 211 membros. Voltou a crescer em 2026, mas devagar. Vale investigar o que mudou.</li>
+        <li class="discover"><b>Twitter/X cresce sozinho:</b> 0 vendas em 2024 → 13 em 2025 → 16 em 2026 YTD (já bateu o ano de 2025 em 5 meses) sem nenhuma estratégia ativa. Demanda orgânica subaproveitada.</li>
+        <li class="discover"><b>Pesquisa "Como conheceram a Filadd?" 2026 YTD (n=4.603):</b> TikTok 31,59% · YouTube 19,05% · Google 17,79% · Indicação amigos/família 16,88% · Instagram 8,19% · ChatGPT/IA 4,32% · Reportagem/portais 0,83% · Twitter/X 0,35%. Apesar de pequeno em volume direto, <b>mídia ganha (assessoria de imprensa) gerou R$ 263K em equivalência publicitária só em abr+mai/26</b>.</li>
+        <li class="alert"><b>Sazonalidade do IG 2026:</b> Jan/Fev/Mar foram os meses fortes (vestibular season). Abril teve queda de -74% em views. O conteúdo perde força fora da janela ENEM/SISU/ProUni.</li>
+        <li class="win"><b>Março 2026 foi o pico de cliques no link:</b> 517K cliques (4,5x o segundo melhor mês). Provavelmente coincidiu com campanha de matrículas pós-resultados — vale fazer post-mortem do que rolou.</li>
+        <li class="win"><b>Leads multiplicaram em 2025:</b> +315% vs 2024. 2026 mantém ritmo (40K em 5 meses → ~96K projeção). A geração de demanda não está mais limitando o crescimento.</li>
+        <li class="warning"><b>Paradoxo IG continua válido:</b> 55,3M views em 2026 mas apenas +34,6K seguidores. Conteúdo viraliza, mas não constrói audiência fiel.</li>
+        <li class="win"><b>Comunidadd 8x maior:</b> 893 → 7.440 membros em 14 meses. Ativo de relacionamento que está sendo subaproveitado na narrativa de marca.</li>
+        <li class="action"><b>Janeiro foi MVP de conversão:</b> 15,6K seguidores ganhos só em janeiro — quase 45% do total do ano. Replicar a estratégia desse mês em jan/27 deveria ser ação imediata.</li>
+        <li><b>YouTube segue o motor de matrícula:</b> 57% origem percebida + 318% de crescimento em inscritos. Continuar dobrando aposta.</li>
+        <li class="action"><b>2026 = ano da qualidade, não do volume:</b> a estratégia explícita mudou para captar leads de maior potencial. O KPI agora não é volume, é conversão lead→matrícula.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GAPS -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">10</span> O que ainda falta puxar</h2>
+      <span class="lead">Lista atualizada após v4</span>
+    </div>
+    <div class="gaps">
+      <h3>Lista de gaps</h3>
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ Top conteúdos IG 2026 — entregue</div>
+        <div class="gap-why">Já mapeamos 6 conteúdos. Revela o padrão colab vs orgânico.</div>
+      </div>
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ Comunidadd WhatsApp · 2025 Q2 e total atual — entregue</div>
+        <div class="gap-why">893 → 7.440 mapeado. Falta os pontos intermediários jul/25→abr/26 pra desenhar a curva exata.</div>
+      </div>
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ Análise de Leads 2024/25/26 — entregue</div>
+        <div class="gap-why">Brevo já incluído. Falta breakdown por fonte (IG/YT/orgânico/pago).</div>
+      </div>
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ Demografia atualizada do Instagram — entregue</div>
+        <div class="gap-why">Já incluído na seção 6. Público alvo (18-24) representa 48,1% · 60% mulheres / 40% homens · top cidades mapeadas. Estados de matrícula completos para 2024/2025/2026.</div>
+      </div>
+
+
+      <div class="gap-item">
+        <div class="gap-title">📊 Resultado da enquete de percepção (Nico)</div>
+        <div class="gap-why">USD 100/dia rodando. Vai dar % de quem conhece Filadd no Brasil e percepção.</div>
+        <div class="gap-how">→ Pedir export do Google Forms/Typeform na sexta</div>
+      </div>
+
+      <div class="gap-item">
+        <div class="gap-title">📊 GSC do site Brasil 2026 (atualizado)</div>
+        <div class="gap-why">PDF original tem dado só até 7/jan/25. Falta YTD 2026 pra fechar tráfego orgânico.</div>
+        <div class="gap-how">→ Search Console → filtrar país=Brasil → últimos 5 meses</div>
+      </div>
+
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ YouTube mensal 2024 vs 2025 vs 2026 — entregue</div>
+        <div class="gap-why">Já temos a série mensal completa de jan/24 a mai/26. Pico em mar/26 (3,05M).</div>
+      </div>
+
+      <div class="gap-item done">
+        <div class="gap-title">✅ Comunidadd · Q3 e Q4 2025 — entregue</div>
+        <div class="gap-why">Cobertura completa mar/25→hoje. Falta apenas Q1/26 e Q2/26 da Posicionamiento.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TL;DR NO FINAL -->
+  <section>
+    <div class="section-header">
+      <h2><span class="num">11</span> TL;DR — os 4 achados de cabeçalho</h2>
+      <span class="lead">Os destaques rápidos para fechar a apresentação</span>
+    </div>
+    <div class="grid grid-2">
+      <div class="card highlight-card">
+        <h3 style="color:var(--brand-dark)">🚀 YouTube virou foguete em 2026</h3>
+        <p style="font-size:15px;margin-top:10px;"><b>7,4M views em 5 meses</b> (jan-mai/26) — superou o ano de 2025 inteiro (2,84M) em <b>+161%</b>. Pico em <b>março: 3,05M num único mês</b>. Média mensal saiu de 67K (2024) → 237K (2025) → 2,4M (2026 Q1).</p>
+      </div>
+      <div class="card">
+        <h3>🔍 Colab vs conteúdo próprio</h3>
+        <p>Reels em colab com @estudantedepressao geram <b>5x mais views</b> mas convertem <b>18x menos em seguidores</b>. Os 475K views do melhor reel trouxeram só 12 seguidores. As Notas de Corte entregam 50 seguidores por post.</p>
+      </div>
+      <div class="card">
+        <h3>📈 Leads explodiram em 2025</h3>
+        <p>+314,9% de 2024 (29,4K) para 2025 (121,9K). 2026 YTD em 40,2K — projeção de ~96K no ano cheio.</p>
+      </div>
+      <div class="card platform-wa">
+        <h3>💬 Comunidadd: decolagem → platô → recuperação</h3>
+        <p><b>893 → 7.176 em 5 meses</b> (mar-ago/25). Depois estagnou no Q4/25 (-211 membros). Voltou a crescer em 2026: hoje em <b>7.440</b>. Total +733% desde mar/25.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Análise da Marca Filadd Brasil v10 · Compilada em 27 mai 2026 por Theus Mattos</p>
+    <p style="margin-top:6px;">Fontes: Meta Business · TikTok Studio · YouTube Studio · Brevo · Posicionamiento Brasil Q2/Q3/Q4 2025 · CSVs Analise Insta · CRM (alunos por estado 2024/25/26) · Demografia IG (Público.csv)</p>
+  </footer>
+
+</div>
+
+<script>
+const months2026 = ['Jan','Fev','Mar','Abr','Mai (parc.)'];
+
+// IG 2026 Visualizações mensais
+new Chart(document.getElementById('ig2026Monthly'), {
+  type: 'bar',
+  data: {
+    labels: months2026,
+    datasets: [{
+      label: 'Visualizações (em milhões)',
+      data: [10.74, 26.23, 11.79, 3.06, 3.48],
+      backgroundColor: ['#A5B4FC','#2A2EFF','#A5B4FC','#FCA5A5','#FCA5A5'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y.toFixed(2) + ' milhões' } }
+    },
+    scales: { y: { beginAtZero: true, title: { display: true, text: 'Visualizações (em milhões)' } } }
+  }
+});
+
+// Top Posts Efficiency (seguidores por 100K views)
+new Chart(document.getElementById('topPostsEfficiency'), {
+  type: 'bar',
+  indexAxis: 'y',
+  data: {
+    labels: ['Notas Corte Medicina (orgânico)', 'Notas Corte Psicologia (orgânico)', 'PROUNI 2026 (orgânico)', '"Se você falou ENEM" (colab BBB)', '"Protagonista" (colab)', 'Simulado ENEM (colab)'],
+    datasets: [{
+      label: 'Seguidores por 100K views',
+      data: [53.8, 40.8, 9.8, 2.5, 0.9, 1.1],
+      backgroundColor: ['#10B981','#10B981','#A5B4FC','#FCA5A5','#FCA5A5','#FCA5A5'],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: { beginAtZero: true, title: { display: true, text: 'Seguidores ganhos por 100K visualizações' } } }
+  }
+});
+
+// Leads por ano
+new Chart(document.getElementById('leadsYear'), {
+  type: 'bar',
+  data: {
+    labels: ['2024', '2025', '2026 YTD (jan-mai)', '2026 projeção'],
+    datasets: [{
+      label: 'Leads captados',
+      data: [29409, 121910, 40177, 96000],
+      backgroundColor: ['#A5B4FC','#10B981','#2A2EFF','#FBBF24'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y.toLocaleString('pt-BR') + ' leads' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => (v/1000).toFixed(0)+'K' } } }
+  }
+});
+
+// Comunidadd total (dados reais)
+new Chart(document.getElementById('comunidaddTotal'), {
+  type: 'line',
+  data: {
+    labels: ['Mar/25','Abr/25','Mai/25','Jun/25','Jul/25','Ago/25','Set/25','Out/25','Nov/25','Dez/25','Jan/26','Mai/26 (hoje)'],
+    datasets: [{
+      label: 'Membros Comunidadd',
+      data: [893, 885, 1100, 3300, 5340, 7176, 7253, 7123, 7123, 7042, 7100, 7440],
+      borderColor: '#25D366',
+      backgroundColor: 'rgba(37, 211, 102, 0.15)',
+      fill: true,
+      tension: 0.3,
+      borderWidth: 3,
+      pointRadius: 5,
+      pointBackgroundColor: '#25D366'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y.toLocaleString('pt-BR') + ' membros' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => (v/1000).toFixed(1)+'K' } } }
+  }
+});
+
+// Twitter/X vendas
+new Chart(document.getElementById('twitterSales'), {
+  type: 'bar',
+  data: {
+    labels: ['2024', '2025', '2026 YTD (jan-mai)'],
+    datasets: [{
+      label: 'Vendas com origem Twitter/X',
+      data: [0, 13, 16],
+      backgroundColor: ['#9CA3AF', '#6B7280', '#000'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y + ' vendas' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { stepSize: 2 } } }
+  }
+});
+
+// YouTube mensal 2024 vs 2025 vs 2026
+new Chart(document.getElementById('ytMonthly'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets: [
+      {
+        label: '2024',
+        data: [103179, 67411, 352975, 23227, 43366, 20677, 17730, 72101, 28113, 23896, 47209, 5609],
+        backgroundColor: '#FCA5A5',
+        borderRadius: 4
+      },
+      {
+        label: '2025',
+        data: [202793, 595110, 370494, 121487, 60373, 128187, 85147, 57294, 69883, 314473, 162085, 674820],
+        backgroundColor: '#F87171',
+        borderRadius: 4
+      },
+      {
+        label: '2026',
+        data: [1645080, 2439938, 3049887, 276161, 17263, null, null, null, null, null, null, null],
+        backgroundColor: '#FF0000',
+        borderRadius: 4
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'top' },
+      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + (c.parsed.y/1000).toFixed(0) + 'K views' } }
+    },
+    scales: {
+      y: { beginAtZero: true, ticks: { callback: v => (v/1000000).toFixed(2)+'M' }, title: { display: true, text: 'Visualizações' } }
+    }
+  }
+});
+
+// Imprensa Q1 2026 mensal
+new Chart(document.getElementById('imprensaQ1Mensal'), {
+  type: 'bar',
+  data: {
+    labels: ['Janeiro 2026', 'Fevereiro 2026', 'Março 2026'],
+    datasets: [{
+      label: 'Matérias publicadas',
+      data: [11, 39, 30],
+      backgroundColor: ['#A5B4FC','#6366F1','#818CF8'],
+      borderRadius: 8
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.y + ' matérias' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { stepSize: 5 }, title: { display: true, text: 'Número de matérias' } } }
+  }
+});
+
+// Imprensa Distribuição Regional Q1 2026
+new Chart(document.getElementById('imprensaRegional'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Sudeste (SP 68% + RJ 11% + outros)', 'Nordeste (PE/BA/AL)', 'Norte (PA/AM)', 'Centro-Oeste (DF)', 'Sul (SC)'],
+    datasets: [{
+      data: [80, 10, 5, 3, 3],
+      backgroundColor: ['#2A2EFF','#6366F1','#A5B4FC','#C7D2FE','#E0E7FF'],
+      borderWidth: 2,
+      borderColor: '#FFFFFF'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right' },
+      tooltip: { callbacks: { label: c => c.label + ': ' + c.parsed + '%' } }
+    }
+  }
+});
+
+// 6.1 Variação em pp dos 27 estados (2024 → 2026 YTD)
+const estadosDelta = [
+  {estado: 'Rio de Janeiro', delta: 4.23},
+  {estado: 'Minas Gerais', delta: 2.05},
+  {estado: 'Espírito Santo', delta: 0.90},
+  {estado: 'Rio Grande do Sul', delta: 0.74},
+  {estado: 'São Paulo', delta: 0.62},
+  {estado: 'Amapá', delta: 0.21},
+  {estado: 'Sergipe', delta: 0.16},
+  {estado: 'Mato Grosso', delta: 0.16},
+  {estado: 'Mato Grosso do Sul', delta: 0.15},
+  {estado: 'Rio Grande do Norte', delta: 0.07},
+  {estado: 'Tocantins', delta: 0.03},
+  {estado: 'Roraima', delta: -0.10},
+  {estado: 'Piauí', delta: -0.13},
+  {estado: 'Distrito Federal', delta: -0.15},
+  {estado: 'Amazonas', delta: -0.31},
+  {estado: 'Maranhão', delta: -0.37},
+  {estado: 'Santa Catarina', delta: -0.40},
+  {estado: 'Acre', delta: -0.44},
+  {estado: 'Goiás', delta: -0.46},
+  {estado: 'Alagoas', delta: -0.58},
+  {estado: 'Paraná', delta: -0.59},
+  {estado: 'Rondônia', delta: -0.63},
+  {estado: 'Pará', delta: -0.67},
+  {estado: 'Pernambuco', delta: -0.97},
+  {estado: 'Paraíba', delta: -1.06},
+  {estado: 'Bahia', delta: -1.09},
+  {estado: 'Ceará', delta: -1.34}
+];
+new Chart(document.getElementById('alunosEstadosDelta'), {
+  type: 'bar',
+  data: {
+    labels: estadosDelta.map(e => e.estado),
+    datasets: [{
+      label: 'Δ share % (2024 → 2026 YTD) em pp',
+      data: estadosDelta.map(e => e.delta),
+      backgroundColor: estadosDelta.map(e => e.delta > 0.5 ? '#10B981' : (e.delta < -0.5 ? '#EF4444' : '#9CA3AF')),
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => 'Δ ' + (c.parsed.y > 0 ? '+' : '') + c.parsed.y.toFixed(2) + ' pp' } }
+    },
+    scales: {
+      y: { title: { display: true, text: 'Variação em pp (share %)' }, ticks: { callback: v => (v > 0 ? '+' : '') + v.toFixed(1) + ' pp' } },
+      x: { ticks: { autoSkip: false, maxRotation: 60, minRotation: 60 } }
+    }
+  }
+});
+
+// 6.2 Idade e gênero (Instagram)
+new Chart(document.getElementById('ageGender'), {
+  type: 'bar',
+  data: {
+    labels: ['18-24','25-34','35-44','45-54','55-64','65+'],
+    datasets: [
+      { label: 'Mulheres', data: [29.2, 17.8, 6.7, 4.5, 1.3, 0.5], backgroundColor: '#E1306C', borderRadius: 4 },
+      { label: 'Homens', data: [18.9, 14.8, 3.5, 1.9, 0.6, 0.3], backgroundColor: '#3B82F6', borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: true, position: 'top' },
+      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toFixed(1) + '%' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => v + '%' }, title: { display: true, text: '% do público' } } }
+  }
+});
+
+// 6.3 Top Cidades (Instagram)
+new Chart(document.getElementById('topCidades'), {
+  type: 'bar',
+  indexAxis: 'y',
+  data: {
+    labels: ['São Paulo, SP','Curitiba, PR','Rio de Janeiro, RJ','Fortaleza, CE','São Luís, MA','Belo Horizonte, MG','Salvador, BA','Manaus, AM','Recife, PE','Campo Grande, MS'],
+    datasets: [{
+      label: '% do público IG',
+      data: [5.9, 3.5, 3.2, 1.4, 1.2, 1.1, 1.1, 1.0, 0.9, 0.9],
+      backgroundColor: '#E1306C',
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => c.parsed.x.toFixed(1) + '% do público IG' } }
+    },
+    scales: { x: { beginAtZero: true, ticks: { callback: v => v + '%' } } }
+  }
+});
+</script>
+
+</body>
+</html>
